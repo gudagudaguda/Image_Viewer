@@ -4,24 +4,17 @@ from tkinter import filedialog
 
 root = Tk()
 root.title('Image Viewer')
-	
-def openfile():
-	root.filename = filedialog.askopenfilenames(initialdir="/home", #Default location
-											title="Select file", 
-											filetypes=(("all file",".*"), ("webp file",".webp"),("jpg file",".jpg"),("png file",".png")))
-	if not root.filename:
-		quit()
-	global ImageList
-	ImageList=[]
+
+root.filename=Label(root)
+myLabel=Label(root)
 
 def resize(img):
 	width = img.size[0]
 	height = img.size[1]
 	if img.size[1]>700:		
 		img = img.resize((int(700*width/height),700), Image.ANTIALIAS)
-
-	width = img.size[0]
-	height = img.size[1]
+		width = img.size[0]
+		height = img.size[1]	
 	if  img.size[0]>1920:
 		img = img.resize((1600,int(1600*height/width)), Image.ANTIALIAS)
 	ImageList.append(ImageTk.PhotoImage(img))
@@ -54,13 +47,11 @@ def forward(num):
 	global myLabel
 	global button_forward
 	global button_back
-
 	if len(ImageList)<num+1:
 		load(num)
 		printImg(num)
 	else:
 		printImg(num)
-
 	button_forward = Button(root, text=">>", command=lambda:forward(num+1))
 	button_back = Button(root, text="<<", command=lambda:back(num-1))
 	myLabel.grid(row=0, column=0, columnspan=3)
@@ -75,10 +66,8 @@ def forward(num):
 def back(num):
 	global myLabel
 	global button_forward
-	global button_back
-	
+	global button_back	
 	printImg(num)
-
 	button_forward = Button(root, text=">>", command=lambda:forward(num+1))
 	if num == 0:
 		button_back = Button(root, text="<<", state=DISABLED)
@@ -90,9 +79,7 @@ def back(num):
 
 def openfiles():
 	del root.filename
-	root.filename = filedialog.askopenfilenames(initialdir="/home/ruka/Anime&Manga", 
-											title="Select file", 
-											filetypes=(("all file",".*"), ("webp file",".webp"),("jpg file",".jpg"),("png file",".png")))
+	root.filename = filedialog.askopenfilenames(initialdir="/home/ruka/Anime&Manga", title="Select file", filetypes=(("all file",".*"), ("webp file",".webp"),("jpg file",".jpg"),("png file",".png")))
 	if not root.filename:
 		quit()
 	global ImageList
@@ -101,13 +88,5 @@ def openfiles():
 	printImg(0)
 	inibutton()
 
-openfile()
-load(0)
-global myLabel
-myLabel=Label(image=ImageList[0])
-myLabel.grid(row=0, column=0, columnspan=3)
-status = Label(root,text="Image 1 of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E)
-status.grid(row=2,column=0,columnspan=3, sticky=W+E)
-inibutton()
-
+openfiles()
 root.mainloop()
