@@ -30,13 +30,6 @@ def load(num):
 	img = Image.open(root.filename[num])
 	resize(img)
 
-def iniprintImg(num):
-	global myLabel
-	myLabel=Label(image=ImageList[num])
-	myLabel.grid(row=0, column=0, columnspan=3)
-	status = Label(root,text="Image "+str(num+1)+" of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E, pady=5)
-	status.grid(row=2,column=0,columnspan=3, sticky=W+E)
-
 def printImg(num):
 	global myLabel
 	myLabel.grid_forget()
@@ -110,7 +103,11 @@ def openfiles():
 
 openfile()
 load(0)
-iniprintImg(0)
+global myLabel
+myLabel=Label(image=ImageList[0])
+myLabel.grid(row=0, column=0, columnspan=3)
+status = Label(root,text="Image 1 of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E, pady=5)
+status.grid(row=2,column=0,columnspan=3, sticky=W+E)
 inibutton()
 
 
