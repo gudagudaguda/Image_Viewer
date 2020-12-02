@@ -8,7 +8,7 @@ root.title('Image Viewer')
 def openfile():
 	root.filename = filedialog.askopenfilenames(initialdir="/home", #Default location
 											title="Select file", 
-											filetypes=(("webp file",".webp"),("jpg file",".jpg"),("png file",".png"),("all file",".*")))
+											filetypes=(("all file",".*"), ("webp file",".webp"),("jpg file",".jpg"),("png file",".png")))
 	if not root.filename:
 		quit()
 	global ImageList
@@ -35,16 +35,16 @@ def printImg(num):
 	myLabel.grid_forget()
 	myLabel=Label(image=ImageList[num])
 	myLabel.grid(row=0, column=0, columnspan=3)
-	status = Label(root,text="Image "+str(num+1)+" of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E, pady=5)
+	status = Label(root,text="Image "+str(num+1)+" of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E)
 	status.grid(row=2,column=0,columnspan=3, sticky=W+E)
 
 def inibutton():
-	button_back = Button(root, text="<<", state=DISABLED, pady=5)
-	button_exit = Button(root, text="OPEN", bg='#d97b7b', command=openfiles, pady=5)
+	button_back = Button(root, text="<<", state=DISABLED)
+	button_exit = Button(root, text="OPEN", bg='#d97b7b', command=openfiles)
 	if len(root.filename)==1:
-		button_forward = Button(root, text=">>", state=DISABLED, pady=5)
+		button_forward = Button(root, text=">>", state=DISABLED)
 	else:
-		button_forward = Button(root, text=">>", command=lambda:forward(1), pady=5)
+		button_forward = Button(root, text=">>", command=lambda:forward(1))
 
 	button_back.grid(row=1, column=0)
 	button_exit.grid(row=1, column=1)
@@ -92,7 +92,7 @@ def openfiles():
 	del root.filename
 	root.filename = filedialog.askopenfilenames(initialdir="/home/ruka/Anime&Manga", 
 											title="Select file", 
-											filetypes=(("webp file",".webp"),("all file",".*")))
+											filetypes=(("all file",".*"), ("webp file",".webp"),("jpg file",".jpg"),("png file",".png")))
 	if not root.filename:
 		quit()
 	global ImageList
@@ -106,9 +106,8 @@ load(0)
 global myLabel
 myLabel=Label(image=ImageList[0])
 myLabel.grid(row=0, column=0, columnspan=3)
-status = Label(root,text="Image 1 of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E, pady=5)
+status = Label(root,text="Image 1 of "+str(len(root.filename))+"	", bd=1, relief=SUNKEN, anchor=E)
 status.grid(row=2,column=0,columnspan=3, sticky=W+E)
 inibutton()
-
 
 root.mainloop()
